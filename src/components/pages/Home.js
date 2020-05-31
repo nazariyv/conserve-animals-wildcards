@@ -7,7 +7,8 @@ const Home = () => {
   const { getEpisodes } = projectContext;
   useEffect(() => {
     getEpisodes();
-  }, [getEpisodes]);
+    // eslint-disable-next-line
+  }, []); // ! careful, do not change to avoid infinite loop
 
   return (
     <div className="text-center">

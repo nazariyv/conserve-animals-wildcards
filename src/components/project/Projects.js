@@ -9,8 +9,8 @@ const Projects = () => {
 
   return (
     <div style={userStyle}>
-      {episodes.map(episode => (
-        <ProjectItem key={episode.id} episode={episode} />
+      {episodes.map((episode) => (
+        <ProjectItem key={episode.list_id} episode={episode} />
       ))}
     </div>
   );
@@ -20,7 +20,7 @@ const userStyle = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fill,minmax(250px, 1fr))",
   gridGap: "1rem",
-  objectFit: "cover"
+  objectFit: "cover",
 };
 
 export default Projects;

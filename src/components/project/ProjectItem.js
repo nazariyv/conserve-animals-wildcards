@@ -6,6 +6,7 @@ const ProjectItem = ({ episode }) => {
   return (
     <div className="card text-center">
       <img
+        key={list_id}
         src={avatar_url}
         alt=""
         className="round-img"

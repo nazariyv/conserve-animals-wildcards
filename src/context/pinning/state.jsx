@@ -37,24 +37,26 @@ const PinningState = ({ children }) => {
   }, []);
 
   const pinArt = useCallback(
-    async (e) => {
+    async ({ e, profile, artMeta }) => {
       if (e) {
         e.preventDefault();
+      }
+      if (!profile) {
+        return;
       }
       dispatch({
         type: UPDATE_STATE,
         payload: { isPinning: true, isPinned: null, pinMeta: null },
       });
-      const resp = await pinToIPFS({ file: state.image });
+      const resp = await pinToIPFS({ file: state.image, profile, artMeta });
       dispatch({
         type: UPDATE_STATE,
-        payload: { isPinning: false, pinMeta: resp },
+        payload: {
+          isPinning: false,
+          pinMeta: resp,
+          isPinned: resp ? resp.status === 200 : false,
+        },
       });
-      console.log(resp);
-      if (resp.status !== 200) {
-        console.log("setting is pinned to false");
-        dispatch({ type: UPDATE_STATE, payload: { isPinned: false } });
-      }
     },
     [state.image]
   );

@@ -8,9 +8,9 @@ import Menu from "../artist/Menu";
 import Review from "../artist/Review";
 import { MY_PROFILE, REVIEW, SUBMIT } from "../../types";
 import Spinner from "../layout/Spinner";
-import ThreeBoxState from "../../context/three-box/state";
 import ThreeBoxContext from "../../context/three-box/context";
 import PinningState from "../../context/pinning/state";
+import ThreeBoxState from "../../context/three-box/state";
 
 const BoxProfile = () => {
   const threeBox = useContext(ThreeBoxContext);

@@ -30,7 +30,7 @@ const ThreeBoxState = ({ children }) => {
 
   useEffect(() => {
     fetch3BoxUser();
-    /* eslint-disable */
+    // eslint-disable-next-line
   }, []);
 
   return (
