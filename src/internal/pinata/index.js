@@ -58,7 +58,6 @@ export const getUserSubmissions = async ({ proofDid }) => {
       pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY,
     };
     const resp = await axios.get(url, { headers });
-    console.log(resp);
     return resp;
   } catch (error) {
     console.log("captured getting user submissions with Pinata error", error);

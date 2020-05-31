@@ -14,20 +14,19 @@ const Review = () => {
   const { profile } = useContext(ThreeBoxContext);
 
   useEffect(() => {
-    const resp = getUserSubmissions({ proofDid: profile.proof_did });
-    console.log("resp");
-    console.log(resp);
-    console.log("profile");
-    console.log(profile);
-    if (!resp || resp.status !== 200) {
-      setRequestOK(false);
-    }
-    setLoadingUserSubmissions(false);
-    const table = pinataToTable(resp);
-    console.log("table");
-    console.log(table);
-    setUserSubmisisons({});
-    setRequestOK(true);
+    getUserSubmissions({ proofDid: profile.proof_did })
+      .then((resp) => {
+        if (!resp || resp.status !== 200) {
+          setRequestOK(false);
+        }
+        setLoadingUserSubmissions(false);
+        const table = pinataToTable({ data: resp.data });
+        setUserSubmisisons(table);
+        setRequestOK(true);
+      })
+      .catch((e) => {
+        console.log("something went wrong", e);
+      });
     /* eslint-disable */
   }, [profile.proof_did]);
 
@@ -64,7 +63,7 @@ const Review = () => {
     prepareRow,
   } = useTable({
     columns,
-    data: [{}],
+    data: userSubmissions,
   });
 
   const reviewPage = () => {

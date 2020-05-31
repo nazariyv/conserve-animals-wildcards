@@ -1,21 +1,15 @@
 export const pinataToTable = ({ data }) => {
   if (!data) {
-    return [];
+    return [{}];
   }
-
-  console.log("data");
-  console.log(data);
-
-  return Object.values(data).map((v) => {
-    console.log(v);
-
+  return Object.values(data.rows).map((v) => {
     return {
-      createdOn: v.date_pinned,
-      fileName: v.metadata.keyvalues.fileName,
-      artName: v.metadata.keyvalues.artName,
-      myComment: v.metadata.keyvalues.authorComment,
-      status: v.metadata.keyvalues.reviewStatus,
-      reviewersComment: v.metadata.kevalues.reviewersComment,
+      createdOn: v.date_pinned || "1970-01-01T00:00:00.0000Z",
+      fileName: v.metadata.keyvalues.fileName || "",
+      artName: v.metadata.keyvalues.artName || "",
+      myComment: v.metadata.keyvalues.authorComment || "",
+      status: v.metadata.keyvalues.reviewStatus || null,
+      reviewersComment: v.metadata.keyvalues.reviewersComment || "",
       resubmit: null, // todo: react component here?
     };
   });
