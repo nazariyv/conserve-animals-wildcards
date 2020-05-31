@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MY_PROFILE, SUBMIT, REVIEW } from "../../context/types";
+import { MY_PROFILE, SUBMIT, REVIEW } from "../../types";
 
 const MenuItem = ({ menuName, setActiveMenu }) => {
   switch (menuName) {

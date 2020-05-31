@@ -9,6 +9,5 @@ export const REMOVE_ALERT = "REMOVE_ALERT";
 export const GET_EPISODES = "GET_EPISODES";
 export const GET_EPISODE = "GET_EPISODE";
 
-export const MY_PROFILE = "MY_PROFILE";
-export const SUBMIT = "SUBMIT";
-export const REVIEW = "REVIEW";
+export const SET_PROFILE = "GET_PROFILE";
+export const SET_IS_LOADING_PROFILE = "SET_IS_LOADING_PROFILE";

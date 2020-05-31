@@ -10,7 +10,7 @@ export const pinToIPFS = async ({ file }) => {
       name: "randomName",
       keyvalues: {
         wildcards: "art",
-        user: "naz",
+        user: "naz", // todo: need a context for 3Box user so that I can pull it here and add it to the pin
       },
     });
     data.append("pinataMetadata", metadata);
@@ -35,8 +35,6 @@ export const pinToIPFS = async ({ file }) => {
       pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
       pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY,
     };
-
-    console.log(headers);
 
     const resp = await axios.post(url, data, { headers });
 

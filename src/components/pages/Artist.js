@@ -1,41 +1,28 @@
-import React, { Fragment, useState, useEffect, useCallback } from "react";
+import React, { Fragment, useState, useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
-import * as Box from "3box";
+// import * as Box from "3box";
 
 import MyProfile from "../artist/MyProfile";
 import Submit from "../artist/Submit";
 import Menu from "../artist/Menu";
 import Review from "../artist/Review";
-import { MY_PROFILE, REVIEW, SUBMIT } from "../../context/types";
+import { MY_PROFILE, REVIEW, SUBMIT } from "../../types";
 import Spinner from "../layout/Spinner";
-
-const fetch3BoxUser = async ({ setProfile, setLoadingBoxUser }) => {
-  const profile = await Box.getProfile(
-    "0xd93800B7290B37a3ac36e4cDd3F881a929acD4A3"
-  );
-  if (profile) {
-    setLoadingBoxUser(false);
-    setProfile(profile);
-  }
-};
+import ThreeBoxState from "../../context/three-box/state";
+import ThreeBoxContext from "../../context/three-box/context";
 
 const BoxProfile = () => {
-  const [loadingBoxUser, setLoadingBoxUser] = useState(true);
-  const [profile, setProfile] = useState({});
-
-  useEffect(() => {
-    fetch3BoxUser({ setProfile, setLoadingBoxUser });
-  }, []);
+  const threeBox = useContext(ThreeBoxContext);
+  const { profile, isLoading: isLoadingProfile } = threeBox;
 
   const getName = useCallback(() => {
     if (profile.name) {
       return profile.name;
     }
-    // todo: generate cool name here
-    return "Pumpkin";
+    return "Pumpkin"; // todo: generate names
   }, [profile.name]);
 
-  if (loadingBoxUser) {
+  if (isLoadingProfile) {
     return <Spinner />;
   }
 
@@ -78,7 +65,7 @@ const Artist = () => {
   const [activeMenu, setActiveMenu] = useState(MY_PROFILE);
 
   return (
-    <Fragment>
+    <ThreeBoxState>
       <Link to="/" className="btn btn-light">
         Back
       </Link>
@@ -90,7 +77,7 @@ const Artist = () => {
           <ActiveMenuItem activeMenu={activeMenu} />
         </div>
       </div>
-    </Fragment>
+    </ThreeBoxState>
   );
 };
 
