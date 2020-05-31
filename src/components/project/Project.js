@@ -9,7 +9,7 @@ const Project = ({ match }) => {
 
   useEffect(() => {
     getEpisode(match.params.list_id);
-  }, []);
+  }, [match.params.list_id, getEpisode]);
 
   const { name, bio, avatar_url, company_bio, html_url, active } = episode;
 
@@ -35,7 +35,12 @@ const Project = ({ match }) => {
           <h1>{name}</h1>
           {company_bio && <p>{company_bio}</p>}
           {html_url && (
-            <a href={html_url} target="_blank" className="btn btn-dark my-1">
+            <a
+              href={html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-dark my-1"
+            >
               {html_url}
             </a>
           )}

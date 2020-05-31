@@ -7,7 +7,7 @@ const Home = () => {
   const { getEpisodes } = projectContext;
   useEffect(() => {
     getEpisodes();
-  }, []);
+  }, [getEpisodes]);
 
   return (
     <div className="text-center">

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Users from "../users/Users";
+// import Users from "../users/Users";
 import { Link } from "react-router-dom";
 
 const About = () => {
