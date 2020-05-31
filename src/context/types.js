@@ -11,3 +11,6 @@ export const GET_EPISODE = "GET_EPISODE";
 
 export const SET_PROFILE = "GET_PROFILE";
 export const SET_IS_LOADING_PROFILE = "SET_IS_LOADING_PROFILE";
+
+export const POST_FOR_PINNING = "POST_FOR_PINNING";
+export const UPDATE_STATE = "UPDATE_STATE";

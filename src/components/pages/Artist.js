@@ -10,6 +10,7 @@ import { MY_PROFILE, REVIEW, SUBMIT } from "../../types";
 import Spinner from "../layout/Spinner";
 import ThreeBoxState from "../../context/three-box/state";
 import ThreeBoxContext from "../../context/three-box/context";
+import PinningState from "../../context/pinning/state";
 
 const BoxProfile = () => {
   const threeBox = useContext(ThreeBoxContext);
@@ -66,17 +67,19 @@ const Artist = () => {
 
   return (
     <ThreeBoxState>
-      <Link to="/" className="btn btn-light">
-        Back
-      </Link>
-      <div className="artist">
-        <Menu setActiveMenu={setActiveMenu} />
-        <div className="artistActiveMenuItem">
-          <BoxProfile />
-          <div style={{ margin: "1rem 0" }} />
-          <ActiveMenuItem activeMenu={activeMenu} />
+      <PinningState>
+        <Link to="/" className="btn btn-light">
+          Back
+        </Link>
+        <div className="artist">
+          <Menu setActiveMenu={setActiveMenu} />
+          <div className="artistActiveMenuItem">
+            <BoxProfile />
+            <div style={{ margin: "1rem 0" }} />
+            <ActiveMenuItem activeMenu={activeMenu} />
+          </div>
         </div>
-      </div>
+      </PinningState>
     </ThreeBoxState>
   );
 };

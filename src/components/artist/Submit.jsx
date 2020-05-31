@@ -1,122 +1,113 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext } from "react";
 
 import Spinner from "../layout/Spinner";
-import { pinToIPFS } from "../../internal/pinata";
-
-// todo: validation
-// forbid submitting, unless all the conditions are satisfied
+import PinningContext from "../../context/pinning/context";
 
 const Submit = () => {
-  const [artName, setArtName] = useState("");
-  const [comments, setComments] = useState("");
-  const [image, setImage] = useState(null);
-  const [imageUploading, setImageUploading] = useState(false);
-  const [imgIsPinning, setImgIsPinning] = useState(false);
+  const {
+    artName,
+    authorComment,
+    image,
+    isPinning,
+    isPinned,
+    // pinMeta,
+    onImage,
+    onChange,
+    pinArt,
+  } = useContext(PinningContext);
 
-  const onSubmit = useCallback(
-    async (e) => {
-      e.preventDefault();
-      if (!image) {
-        return;
-      }
-      setImgIsPinning(true);
-      const resp = await pinToIPFS({ file: image });
-      console.log("pinned", resp);
-      setImgIsPinning(false);
-    },
-    [image]
-  );
-
-  const onArtNameChange = useCallback(
+  const tryAgain = useCallback(
     (e) => {
-      setArtName(e.target.value);
+      e.target.name = "isPinned";
+      e.target.value = null;
+      onChange(e);
     },
-    [setArtName]
-  );
-
-  const onCommentChange = useCallback(
-    (e) => {
-      setComments(e.target.value);
-    },
-    [setComments]
-  );
-
-  const onImageUpload = useCallback(
-    (e) => {
-      setImageUploading(true);
-      setImage(e.target.files[0]);
-      setImageUploading(false);
-    },
-    [setImage]
+    [onChange]
   );
 
   const artForm = useCallback(() => {
-    switch (imgIsPinning) {
+    if (isPinned === false) {
+      return (
+        <>
+          <h2>Oops, something went wrong when uploading the art...</h2>
+          <div style={{ width: "50%", height: "50%", margin: "5px" }}>
+            <img
+              src={"/assets/images/puppy.jpg"}
+              alt="by Andrea Lightfoot on Unsplash"
+            />
+          </div>
+          <input
+            type="button"
+            className="btn btn-danger"
+            value="Try Again"
+            onClick={tryAgain}
+          />
+        </>
+      );
+    }
+    switch (isPinning) {
       case true:
         return <Spinner />;
       default:
         return (
-          <form className="submitArtForm card" onSubmit={onSubmit}>
+          <form className="submitArtForm card" onSubmit={pinArt}>
             <>
               <label htmlFor="artName">Your masterpiece name (optional)</label>
               <input
+                className="smallMargin"
                 type="text"
                 id="artName"
                 value={artName}
-                onChange={onArtNameChange}
+                onChange={onChange}
               />
             </>
             <>
               <label htmlFor="artComments">Comments (optional)</label>
               <textarea
+                className="smallMargin"
                 id="artComments"
-                value={comments}
-                onChange={onCommentChange}
+                value={authorComment}
+                onChange={onChange}
               />
             </>
             <>
-              <label htmlFor="image">
-                Art file * (.gif, .jpg and .png supported)
-              </label>
-              <p>10 MB max size is supported</p>
+              <label htmlFor="art">Art file*</label>
+              <p>
+                <b>10 MB max size is supported</b>
+              </p>
               <input
                 type="file"
-                id="image"
-                name="image"
+                id="art"
+                name="art"
                 accept=".gif,.jpg,.png"
-                onChange={onImageUpload}
+                onChange={onImage}
               />
             </>
-            <input type="submit" className="btn btn-primary" />
-            {image && (
+            <input
+              type="submit"
+              disabled={!image}
+              className="btn btn-primary"
+            />
+            {/* unomment for image preview */}
+            {/* {image && (
               <img alt="uploaded art" src={URL.createObjectURL(image)} />
-            )}
+            )} */}
           </form>
         );
     }
   }, [
     artName,
-    comments,
+    authorComment,
     image,
-    onArtNameChange,
-    onCommentChange,
-    onImageUpload,
-    onSubmit,
-    imgIsPinning,
+    isPinning,
+    onChange,
+    pinArt,
+    onImage,
+    isPinned,
+    tryAgain,
   ]);
 
-  const content = useCallback(() => {
-    switch (imageUploading) {
-      case true:
-        return <Spinner />;
-      case false:
-        return <>{artForm()}</>;
-      default:
-        throw new Error("Unknown error in Submit component");
-    }
-  }, [artForm, imageUploading]);
-
-  return <>{content()}</>;
+  return <>{artForm()}</>;
 };
 
 export default Submit;

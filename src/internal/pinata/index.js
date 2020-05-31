@@ -40,8 +40,7 @@ export const pinToIPFS = async ({ file }) => {
 
     return resp;
   } catch (error) {
-    // todo: remove for production
-    console.log("captured pinata error", error);
+    console.log("captured pinata error", error); // todo: remove for production
   }
 
   return null;
