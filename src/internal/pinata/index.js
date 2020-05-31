@@ -15,6 +15,7 @@ export const pinToIPFS = async ({ file, profile, artMeta }) => {
         proofDid: `${profile.proof_did}`,
         artName: `${artMeta.artName}`,
         authorComment: `${artMeta.authorComment}`,
+        fileName: `${file.name}`,
       },
     });
     data.append("pinataMetadata", metadata);

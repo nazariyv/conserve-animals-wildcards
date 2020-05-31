@@ -28,6 +28,7 @@ const Submit = () => {
     [onChange]
   );
 
+  // todo: throttle the submission
   const onSubmit = useCallback(
     (e) => {
       pinArt({ e, profile, artMeta: { artName, authorComment } });
@@ -126,6 +127,12 @@ const Submit = () => {
                 !image ? "btn btn-dark btn-disabled" : "btn btn-primary"
               }
             />
+            {isPinned && (
+              <>
+                <i class="fas fa-check-square"></i> Success, your art was
+                uploaded
+              </>
+            )}
             {/* unomment for image preview */}
             {/* {image && (
               <img alt="uploaded art" src={URL.createObjectURL(image)} />

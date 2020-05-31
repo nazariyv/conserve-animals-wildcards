@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from "react";
+import React, { useReducer, useCallback, useEffect } from "react";
 import PinningContext from "./context";
 import PinningReducer from "./reducer";
 import { UPDATE_STATE } from "../types";
@@ -18,6 +18,15 @@ const PinningState = ({ children }) => {
   };
 
   const [state, dispatch] = useReducer(PinningReducer, initialState);
+
+  useEffect(() => {
+    if (state.isPinned) {
+      dispatch({
+        type: UPDATE_STATE,
+        payload: { artName: "", image: null, authorComment: "" },
+      });
+    }
+  }, [state.isPinned]);
 
   const onImage = useCallback((e) => {
     if (e) {
