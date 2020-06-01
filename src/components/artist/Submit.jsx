@@ -3,6 +3,7 @@ import React, { useCallback, useContext } from "react";
 import Spinner from "../layout/Spinner";
 import PinningContext from "../../context/pinning/context";
 import ThreeBoxContext from "../../context/three-box/context";
+import PuppyError from "../../components/puppy-error";
 
 const Submit = () => {
   const {
@@ -38,23 +39,7 @@ const Submit = () => {
 
   const artForm = useCallback(() => {
     if (isPinned === false) {
-      return (
-        <>
-          <h2>Oops, something went wrong when uploading the art...</h2>
-          <div style={{ width: "50%", height: "50%", margin: "5px" }}>
-            <img
-              src={"/assets/images/puppy.jpg"}
-              alt="by Andrea Lightfoot on Unsplash"
-            />
-          </div>
-          <input
-            type="button"
-            className="btn btn-danger"
-            value="Try Again"
-            onClick={tryAgain}
-          />
-        </>
-      );
+      return <PuppyError onClick={tryAgain} />;
     }
     switch (isPinning) {
       case true:
@@ -78,8 +63,7 @@ const Submit = () => {
               <label htmlFor="artComment">Want to tell us something?</label>
               <textarea
                 style={{
-                  maxWidth: "300px",
-                  maxHeight: "150px",
+                  maxWidth: "100%",
                   minWidth: "50px",
                   minHeight: "50px",
                 }}
@@ -129,7 +113,7 @@ const Submit = () => {
             />
             {isPinned && (
               <>
-                <i class="fas fa-check-square"></i> Success, your art was
+                <i className="fas fa-check-square"></i> Success, your art was
                 uploaded
               </>
             )}

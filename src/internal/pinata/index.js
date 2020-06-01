@@ -1,6 +1,8 @@
 import axios from "axios";
 import FormData from "form-data";
 
+import { IN_REVIEW } from "./types";
+
 export const pinToIPFS = async ({ file, profile, artMeta }) => {
   const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
   try {
@@ -16,6 +18,7 @@ export const pinToIPFS = async ({ file, profile, artMeta }) => {
         artName: `${artMeta.artName}`,
         authorComment: `${artMeta.authorComment}`,
         fileName: `${file.name}`,
+        status: IN_REVIEW,
       },
     });
     data.append("pinataMetadata", metadata);
