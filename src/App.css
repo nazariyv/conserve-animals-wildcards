@@ -470,7 +470,8 @@ tbody > tr {
 
 .artistMenu {
   display: flex;
-  width: 30%;
+  width: 20%;
+  min-width: 300px;
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;

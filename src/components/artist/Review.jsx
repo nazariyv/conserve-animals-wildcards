@@ -1,11 +1,12 @@
 import React, { useMemo, useState, useEffect, useContext } from "react";
 import Spinner from "../layout/Spinner";
 
-import { useTable } from "react-table";
 import { getUserSubmissions } from "../../internal/pinata";
 import { pinataToTable } from "../../internal/pinata/transform";
+import { USER } from "../../internal/pinata/types";
 import ThreeBoxContext from "../../context/three-box/context";
 import PuppyError from "../../components/puppy-error";
+import Table from "../../components/table";
 
 // const Resubmit = (value) => {
 //   console.log(value);
@@ -17,7 +18,6 @@ import PuppyError from "../../components/puppy-error";
 //   );
 // };
 
-// todo: rewrite this table: https://codesandbox.io/s/r5n96yvwnm?file=/index.js:211-330
 const Review = () => {
   const [loadingUserSubmissions, setLoadingUserSubmissions] = useState(true);
   const [userSubmissions, setUserSubmisisons] = useState([{}]);
@@ -31,7 +31,7 @@ const Review = () => {
           setRequestOK(false);
         }
         setLoadingUserSubmissions(false);
-        const table = pinataToTable({ data: resp.data });
+        const table = pinataToTable({ data: resp.data, type: USER });
         setUserSubmisisons(table);
         setRequestOK(true);
       })
@@ -73,16 +73,6 @@ const Review = () => {
   );
 
   // Use the state and functions returned from useTable to build your UI
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data: userSubmissions,
-  });
 
   // todo: add the pulled submissions to local storage
   const reviewPage = () => {
@@ -90,48 +80,7 @@ const Review = () => {
       case true:
         return <Spinner />;
       default:
-        return (
-          <table
-            {...getTableProps()}
-            className="pure-table"
-            style={{
-              display: "inline-block",
-              overflowY: "auto",
-              maxHeight: "800px",
-              minWidth: "800px",
-              width: "1100px",
-              maxWidth: "1600px",
-            }}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row, i) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell, j) => {
-                      return (
-                        <td {...cell.getCellProps()}>
-                          <div>{cell.render("Cell")}</div>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        );
+        return <Table columns={columns} data={userSubmissions} />;
     }
   };
 

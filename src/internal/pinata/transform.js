@@ -1,12 +1,13 @@
 import React from "react";
 import { IN_REVIEW, APPROVED, REJECTED, IMPROVE } from "./types";
+import { USER, ADMIN } from "./types";
 
 const getSubmissionStatus = ({ status }) => {
   switch (status) {
     case IN_REVIEW:
       return (
         <>
-          <i class="fas fa-history"></i>
+          <i className="fas fa-history"></i>
           <br />
           In Review
         </>
@@ -14,7 +15,7 @@ const getSubmissionStatus = ({ status }) => {
     case APPROVED:
       return (
         <>
-          <i class="far fa-thumbs-up"></i>
+          <i className="far fa-thumbs-up"></i>
           <br />
           Approved
         </>
@@ -22,7 +23,7 @@ const getSubmissionStatus = ({ status }) => {
     case REJECTED:
       return (
         <>
-          <i class="fas fa-times"></i>
+          <i className="fas fa-times"></i>
           <br />
           Rejected
         </>
@@ -30,7 +31,7 @@ const getSubmissionStatus = ({ status }) => {
     case IMPROVE:
       return (
         <>
-          <i class="fas fa-edit">Resubmit</i>Resubmit
+          <i className="fas fa-edit">Resubmit</i>Resubmit
         </>
       );
     default:
@@ -38,21 +39,44 @@ const getSubmissionStatus = ({ status }) => {
   }
 };
 
-export const pinataToTable = ({ data }) => {
-  if (!data) {
+export const pinataToTable = ({ data, type }) => {
+  if (!data || !type) {
     return [{}];
   }
-  return Object.values(data.rows).map((v) => {
-    return {
-      createdOn: v.date_pinned || "1970-01-01T00:00:00.0000Z",
-      fileName: v.metadata.keyvalues.fileName || "",
-      artName: v.metadata.keyvalues.artName || "",
-      myComment: v.metadata.keyvalues.authorComment || "",
-      status: getSubmissionStatus({
-        status: v.metadata.keyvalues.status,
-      }),
-      reviewersComment: v.metadata.keyvalues.reviewersComment || "",
-      resubmit: null, // todo: react component here?
-    };
-  });
+  let out;
+  if (type === USER) {
+    out = Object.values(data.rows).map((v) => {
+      const { keyvalues } = v.metadata;
+      return {
+        createdOn: v.date_pinned || "1970-01-01T00:00:00.0000Z",
+        fileName: keyvalues.fileName || "",
+        artName: keyvalues.artName || "",
+        myComment: keyvalues.authorComment || "",
+        status: getSubmissionStatus({
+          status: keyvalues.status,
+        }),
+        reviewersComment: keyvalues.reviewersComment || "",
+        resubmit: null, // todo: react component here?
+      };
+    });
+  } else if (type === ADMIN) {
+    out = Object.values(data.rows).map((v) => {
+      const { keyvalues } = v.metadata;
+      return {
+        createdOn: v.date_pinned || "1970-01-01T00:00:00.0000Z",
+        fileName: keyvalues.fileName || "",
+        artName: keyvalues.artName || "",
+        myComment: keyvalues.authorComment || "",
+        status: getSubmissionStatus({
+          status: keyvalues.status,
+        }),
+        reviewersComment: keyvalues.reviewersComment || "",
+        id: v.id || "",
+        ipfs_pin_hash: v.ipfs_pin_hash || "",
+        size: v.size || "",
+        user_id: v.user_id || "",
+      };
+    });
+  }
+  return out;
 };

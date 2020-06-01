@@ -10,6 +10,7 @@ import Contact from "./components/pages/Contact";
 import NotFound from "./components/pages/NotFound";
 import Project from "./components/project/Project";
 import Artist from "./components/pages/Artist";
+import AdminPanel from "./components/pages/Admin";
 
 import GithubState from "./context/github/GithubState";
 import AlertState from "./context/alert/AlertState";
@@ -58,6 +59,11 @@ const App = () => {
                           exact
                           path="/project/:list_id"
                           component={Project}
+                        />
+                        <Route
+                          exact
+                          path="/admin/:pwd"
+                          component={AdminPanel}
                         />
                         <Route component={NotFound} />
                       </Switch>

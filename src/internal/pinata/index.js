@@ -3,6 +3,7 @@ import FormData from "form-data";
 
 import { IN_REVIEW } from "./types";
 
+// !!! USERS PIN TO IPFS WITH OUR API KEYS, BUT IN THE META WE ADD THEIR 3BOX PROOF_DID to identify them
 export const pinToIPFS = async ({ file, profile, artMeta }) => {
   const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
   try {
@@ -65,4 +66,37 @@ export const getUserSubmissions = async ({ proofDid }) => {
   } catch (error) {
     console.log("captured getting user submissions with Pinata error", error);
   }
+};
+
+export const getAllSubmissions = async () => {
+  const url = `https://api.pinata.cloud/data/pinList?status=pinned&metadata[wildcards]=art`;
+  try {
+    const headers = {
+      pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+      pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY,
+    };
+    const resp = await axios.get(url, { headers });
+    return resp;
+  } catch (error) {
+    console.log("captured getting user submissions with Pinata error", error);
+  }
+};
+
+export const modifyPin = async ({ ipfsPinHash, newKeyValues }) => {
+  // todo: add Typescript :)
+  // newKeyValues = [{fileName: "blah blah", status: "...."}]
+  const url = "https://api.pinata.cloud/pinning/hashMetadata";
+  const body = {
+    ipfsPinHash,
+    keyvalues: {
+      ...newKeyValues,
+      existingKeyToRemove: null,
+    },
+  };
+  return await axios.put(url, body, {
+    headers: {
+      pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+      pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY,
+    },
+  });
 };
