@@ -31,7 +31,7 @@ const getSubmissionStatus = ({ status }) => {
     case IMPROVE:
       return (
         <>
-          <i className="fas fa-edit">Resubmit</i>Resubmit
+          <i className="fas fa-edit"></i>Resubmit
         </>
       );
     default:

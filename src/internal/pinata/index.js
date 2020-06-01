@@ -12,7 +12,6 @@ export const pinToIPFS = async ({ file, profile, artMeta }) => {
     const metadata = JSON.stringify({
       name: "randomName",
       keyvalues: {
-        isReviewed: "false",
         wildcards: "art",
         userName: `${profile.name}`,
         proofDid: `${profile.proof_did}`,
