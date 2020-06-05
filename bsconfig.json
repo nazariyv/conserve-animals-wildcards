@@ -1,0 +1,50 @@
+{
+  "name": "wild-cards",
+  "reason": {
+    "react-jsx": 3
+  },
+  "bsc-flags": ["-bs-super-errors"],
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "bs-dependencies": [
+    "bs-css",
+    "bs-css-emotion",
+    "bs-fetch",
+    "bs-moment",
+    "decco",
+    "reason-promise",
+    "reason-react",
+    "re-classnames",
+    "@wildcards/reason-apollo",
+    "@wildcards/reason-apollo-hooks"
+  ],
+  "gentypeconfig": {
+    "language": "typescript",
+    "shims": {
+      "ReasonReact": "reactshim"
+    },
+    "debug": {
+      "all": false,
+      "basic": false
+    }
+  },
+  "bs-dev-dependencies": [],
+  "ppx-flags": ["@baransu/graphql_ppx_re/ppx", "bs-let/ppx", "decco/ppx"],
+  "warnings": {
+    "number": "+A-48-42-40",
+    "error": "+A-3-44-102-40-42-4-11-12-20-32-33"
+  },
+  "refmt": 3
+}

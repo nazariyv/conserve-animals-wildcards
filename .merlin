@@ -1,0 +1,45 @@
+####{BSB GENERATED: NO EDIT
+B lib/bs
+FLG -open WildCards
+FLG -ppx /Users/naz/git/conserve-animals-wildcards/node_modules/@baransu/graphql_ppx_re/ppx
+FLG -ppx /Users/naz/git/conserve-animals-wildcards/node_modules/bs-let/ppx
+FLG -ppx /Users/naz/git/conserve-animals-wildcards/node_modules/decco/ppx
+FLG -ppx '/Users/naz/git/conserve-animals-wildcards/node_modules/bs-platform/darwin/bsc.exe -as-ppx -bs-jsx 3'
+S /Users/naz/git/conserve-animals-wildcards/node_modules/bs-platform/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/bs-platform/lib/ocaml
+FLG -w +a-4-9-20-40-41-42-50-61-102+A-48-42-40
+S /Users/naz/git/conserve-animals-wildcards/node_modules/bs-css/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/bs-css/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/bs-css-emotion/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/bs-css-emotion/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/bs-fetch/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/bs-fetch/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/bs-moment/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/bs-moment/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/decco/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/decco/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/reason-promise/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/reason-promise/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/reason-react/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/reason-react/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/re-classnames/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/re-classnames/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/@wildcards/reason-apollo/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/@wildcards/reason-apollo/lib/ocaml
+S /Users/naz/git/conserve-animals-wildcards/node_modules/@wildcards/reason-apollo-hooks/lib/ocaml
+B /Users/naz/git/conserve-animals-wildcards/node_modules/@wildcards/reason-apollo-hooks/lib/ocaml
+S src/harberger-lib
+B lib/bs/src/harberger-lib
+S src/harberger-lib/bindings/web3-react
+B lib/bs/src/harberger-lib/bindings/web3-react
+S src/harberger-lib/bindings/rimble
+B lib/bs/src/harberger-lib/bindings/rimble
+S src/harberger-lib/bindings/ethereum-blockies-base64
+B lib/bs/src/harberger-lib/bindings/ethereum-blockies-base64
+S src/harberger-lib/eth
+B lib/bs/src/harberger-lib/eth
+S src/harberger-lib/components
+B lib/bs/src/harberger-lib/components
+S src/harberger-lib/js/user-provider
+B lib/bs/src/harberger-lib/js/user-provider
+####BSB GENERATED: NO EDIT}

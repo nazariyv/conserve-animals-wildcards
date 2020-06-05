@@ -1,4 +1,4 @@
-import { SET_PROFILE, SET_IS_LOADING_PROFILE } from "../types";
+import { SET_PROFILE, SET_IS_LOADING_PROFILE, UPDATE_STATE } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -11,6 +11,11 @@ export default (state, action) => {
       return {
         ...state,
         isLoadingProfile: action.payload,
+      };
+    case UPDATE_STATE:
+      return {
+        ...state,
+        ...action.payload,
       };
     default:
       return state;

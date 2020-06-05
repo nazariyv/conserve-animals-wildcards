@@ -9,7 +9,8 @@ const Project = ({ match }) => {
 
   useEffect(() => {
     getEpisode(match.params.list_id);
-  }, [match.params.list_id, getEpisode]);
+    /* eslint-disable */
+  }, []);
 
   const { name, bio, avatar_url, company_bio, html_url, active } = episode;
 

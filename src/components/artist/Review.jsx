@@ -7,22 +7,13 @@ import { USER } from "../../internal/pinata/types";
 import ThreeBoxContext from "../../context/three-box/context";
 import PuppyError from "../../components/puppy-error";
 import Table from "../../components/table";
-
-// const Resubmit = (value) => {
-//   console.log(value);
-//   return (
-//     <div style={{ backgroundColor: "yellow", height: "10px" }}></div>
-//     // <a href="#" onClick={resubmitFunc}>
-//     //   {value}
-//     // </a>
-//   );
-// };
+import BoxChat from "../../components/box";
 
 const Review = () => {
   const [loadingUserSubmissions, setLoadingUserSubmissions] = useState(true);
   const [userSubmissions, setUserSubmisisons] = useState([{}]);
   const [requestOK, setRequestOK] = useState(null);
-  const { profile } = useContext(ThreeBoxContext);
+  const { profile, box, space } = useContext(ThreeBoxContext);
 
   useEffect(() => {
     getUserSubmissions({ proofDid: profile.proof_did })
@@ -38,7 +29,6 @@ const Review = () => {
       .catch((e) => {
         console.log("something went wrong", e);
       });
-    /* eslint-disable */
   }, [profile.proof_did]);
 
   const columns = useMemo(
@@ -58,8 +48,8 @@ const Review = () => {
           { Header: "Art Name", accessor: "artName" },
           { Header: "My Comment", accessor: "myComment" },
           { Header: "Reviewer's Comment", accessor: "reviewersComment" },
-          // todo: this can be used to hook up resubmission process
-          // todo: you can add a hidden column with id of the submission here
+          // *: this can be used to hook up resubmission process
+          // *: you can add a hidden column with id of the submission here
           // {
           //   Header: "Resubmit",
           //   accessor: "resubmit",
@@ -72,20 +62,28 @@ const Review = () => {
     []
   );
 
-  // Use the state and functions returned from useTable to build your UI
-
-  // todo: add the pulled submissions to local storage
   const reviewPage = () => {
     switch (loadingUserSubmissions) {
       case true:
         return <Spinner />;
       default:
-        return <Table columns={columns} data={userSubmissions} />;
+        // ! TODO: THIS has to be current user's address
+        if (box && space) {
+          return (
+            <BoxChat
+              box={box}
+              currentUserAddr={process.env.REACT_APP_ADMIN}
+              currentUser3BoxProfile={profile}
+              // handleLogin={boxLogin}
+              threadName="VitalikGorilla" // todo: this will depend on which row the user clicks in the table
+            />
+          );
+        } else {
+          return <Table columns={columns} data={userSubmissions} />;
+        }
     }
   };
 
-  // Render the UI for your table
-  // todo: need to hook up this component's state to the below puppy
   return <>{requestOK === null || requestOK ? reviewPage() : <PuppyError />}</>;
 };
 

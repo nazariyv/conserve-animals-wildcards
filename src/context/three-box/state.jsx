@@ -1,41 +1,70 @@
-import React, { useReducer, useEffect, useCallback } from "react";
+import React, { useReducer, useCallback, useEffect } from "react";
 import ThreeBoxContext from "./context";
 import ThreeBoxReducer from "./reducer";
-import { SET_PROFILE, SET_IS_LOADING_PROFILE } from "../types";
+import Box from "3box";
+import { WILDCARDS } from "../../types";
 
-import { getProfile as get3BoxProfile } from "3box/lib/api";
+import {
+  make as Web3Connect,
+  Modal_make as Web3ConnectModal,
+} from "../../harberger-lib/components/Web3Connect.gen";
+import {
+  useCurrentUser,
+  useIsProviderSelected,
+} from "../../harberger-lib/RootProvider.bs";
+import { use3BoxUserData } from "../../harberger-lib/js/user-provider/UserProvider.bs";
+import { UPDATE_STATE } from "../types";
 
 const ThreeBoxState = ({ children }) => {
-  const initialState = { profile: {}, isLoading: true };
+  const isProviderSelected = useIsProviderSelected();
+  const currentUser = useCurrentUser();
+  let profile = use3BoxUserData(currentUser || "not-found");
+  if (profile) {
+    profile = profile.profile;
+  }
+
+  const initialState = {
+    profile,
+    isProviderSelected,
+    currentUser,
+  };
 
   const [state, dispatch] = useReducer(ThreeBoxReducer, initialState);
 
-  const setProfile = useCallback(({ profile }) => {
-    dispatch({ type: SET_PROFILE, payload: profile });
-  }, []);
-
-  const setLoadingBoxUser = useCallback(({ isLoading }) => {
-    dispatch({ type: SET_IS_LOADING_PROFILE, payload: isLoading });
-  }, []);
-
-  const fetch3BoxUser = useCallback(async () => {
-    const profile = await get3BoxProfile(
-      "0xd93800B7290B37a3ac36e4cDd3F881a929acD4A3"
-    );
-    if (profile) {
-      setProfile({ profile });
-      setLoadingBoxUser({ isLoading: false });
-    }
-  }, [setProfile, setLoadingBoxUser]);
-
   useEffect(() => {
-    fetch3BoxUser();
-    // eslint-disable-next-line
+    dispatch({
+      type: UPDATE_STATE,
+      payload: { isProviderSelected, profile, currentUser },
+    });
+  }, [isProviderSelected, profile, currentUser]);
+
+  const openBoxAndSpace = useCallback(async () => {
+    const provider = await Box.get3idConnectProvider();
+    const box = await Box.openBox(process.env.REACT_APP_ADMIN, provider); // * web3 if it doesn't work?
+    await box.syncDone;
+    const space = await box.openSpace(WILDCARDS);
+    await space.syncDone;
+    return { box, space };
   }, []);
+
+  if (!isProviderSelected) {
+    return (
+      <>
+        Connect to 3Box
+        <Web3Connect />
+        <Web3ConnectModal />
+      </>
+    );
+  }
 
   return (
     <ThreeBoxContext.Provider
-      value={{ profile: state.profile, isLoadingUser: state.isLoadingUser }}
+      value={{
+        profile: state.profile,
+        isProviderSelected: state.isProviderSelected,
+        currentUser: state.currentUser,
+        openBoxAndSpace,
+      }}
     >
       {children}
     </ThreeBoxContext.Provider>
