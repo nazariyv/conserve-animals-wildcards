@@ -2,12 +2,33 @@ import React, { Fragment } from "react";
 import Users from "../users/Users";
 import { Link } from "react-router-dom";
 
+// Example code:
+import {
+  useCurrentUser,
+  useIsProviderSelected,
+} from "../../harberger-lib/RootProvider.bs";
+import { useDisplayName } from "../../harberger-lib/js/user-provider/UserProvider.bs";
+
 const About = () => {
+  const isProviderSelected = useIsProviderSelected();
+  const currentUser = useCurrentUser();
+  const displayName = useDisplayName(currentUser || "doesnt-exist");
+  console.log(currentUser);
+  // const isC = useIsAddressCurrentUser();
   return (
     <Fragment>
       <Link to="/" className="btn btn-light">
         Back
       </Link>
+
+      {isProviderSelected ? (
+        <p>
+          Logged in with: {currentUser} with 3box name {displayName}
+        </p>
+      ) : (
+        <p>Not logged in</p>
+      )}
+
       <h1>About the wildcards bounties program</h1>
       <p>
         Wildcards mission is to bring radical and sustainable change thoughout

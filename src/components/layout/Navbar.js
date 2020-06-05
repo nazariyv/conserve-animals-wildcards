@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import {
+  make as Web3Connect,
+  Modal_make as Web3ConnectModal,
+} from "../../harberger-lib/components/Web3Connect.gen";
 
 const Navbar = ({ icon, title }) => {
   return (
@@ -10,6 +14,10 @@ const Navbar = ({ icon, title }) => {
         {title}
       </h1>
       <ul>
+        <li>
+          <Web3Connect />
+          <Web3ConnectModal />
+        </li>
         <li>
           <Link to="/">Bounties</Link>
         </li>
