@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
-import AlertContext from '../../context/alert/alertContext';
+import React, { useContext } from "react";
+import AlertContext from "../../context/alert/alertContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Alert = () => {
   const alertContext = useContext(AlertContext);
@@ -9,7 +10,7 @@ const Alert = () => {
   return (
     alert !== null && (
       <div className={`alert alert-${alert.type}`}>
-        <i className='fas fa-info-circle' /> {alert.msg}
+        <FontAwesomeIcon icon="infoCircle" /> {alert.msg}
       </div>
     )
   );

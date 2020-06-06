@@ -2,12 +2,14 @@ import React from "react";
 import { IN_REVIEW, APPROVED, REJECTED, IMPROVE } from "./types";
 import { USER, ADMIN } from "./types";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const getSubmissionStatus = ({ status }) => {
   switch (status) {
     case IN_REVIEW:
       return (
         <>
-          <i className="fas fa-history"></i>
+          <FontAwesomeIcon icon="history" />
           <br />
           In Review
         </>
@@ -15,7 +17,7 @@ const getSubmissionStatus = ({ status }) => {
     case APPROVED:
       return (
         <>
-          <i className="far fa-thumbs-up"></i>
+          <FontAwesomeIcon icon="checkSquare" />
           <br />
           Approved
         </>
@@ -23,7 +25,7 @@ const getSubmissionStatus = ({ status }) => {
     case REJECTED:
       return (
         <>
-          <i className="fas fa-times"></i>
+          <FontAwesomeIcon icon="times" />
           <br />
           Rejected
         </>
@@ -31,7 +33,7 @@ const getSubmissionStatus = ({ status }) => {
     case IMPROVE:
       return (
         <>
-          <i className="fas fa-edit"></i>Resubmit
+          <FontAwesomeIcon icon="edit" />
         </>
       );
     default:

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Table from "../../components/table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { getAllSubmissions, modifyPin } from "../../internal/pinata";
 import { pinataToTable } from "../../internal/pinata/transform";
@@ -49,8 +50,8 @@ export default ({ match }) => {
           accessor: "editPin",
           Cell: (cellInfo) => {
             return (
-              <i
-                className="fas fa-file-medical"
+              <FontAwesomeIcon
+                icon="fileMedical"
                 onClick={() => {
                   modifyIt({ cellInfo });
                 }}

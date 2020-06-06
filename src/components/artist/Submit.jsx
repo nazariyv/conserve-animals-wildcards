@@ -1,13 +1,16 @@
 import React, { useCallback, useContext } from "react";
+import Select from "react-select";
 
 import Spinner from "../layout/Spinner";
 import PinningContext from "../../context/pinning/context";
 import ThreeBoxContext from "../../context/three-box/context";
 import PuppyError from "../../components/puppy-error";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Submit = () => {
   const {
     artName,
+    animal,
     authorComment,
     isPinning,
     isPinned,
@@ -16,6 +19,8 @@ const Submit = () => {
     onImage,
     onChange,
     pinArt,
+    animalOptions,
+    onSelectChange,
   } = useContext(PinningContext);
 
   const { profile } = useContext(ThreeBoxContext);
@@ -53,7 +58,7 @@ const Submit = () => {
                 className="smallMargin"
                 type="text"
                 id="artName"
-                name="artName" // ! DO NOT CHANGE
+                name="artName" // ! DO NOT CHANGE, state is hooked up to the name
                 value={artName}
                 onChange={onChange}
                 placeholder="optional..."
@@ -76,12 +81,22 @@ const Submit = () => {
               />
             </>
             <>
-              {/* <label htmlFor="art">Art file*</label>
-              <p>
-                <b>10 MB max size is supported</b>
-              </p> */}
+              <label style={{ margin: "1rem 0" }}>
+                Please select an animal for which you are making a submission
+              </label>
+              <Select
+                name="animal"
+                className="animal-select"
+                value={animal}
+                onChange={onSelectChange}
+                placeholder="Select the animal for submission"
+                options={animalOptions}
+              />
+            </>
+            <>
               <label htmlFor="image" className="custom-file-upload">
-                <i className="fas fa-upload"></i> Upload Art
+                Please select the file to upload &nbsp;
+                <FontAwesomeIcon icon="upload" />
               </label>
               {image && (
                 <div
@@ -106,14 +121,16 @@ const Submit = () => {
             </>
             <input
               type="submit"
-              disabled={!image && "disabled"}
+              disabled={!image && !animal && "disabled"}
               className={
-                !image ? "btn btn-dark btn-disabled" : "btn btn-primary"
+                !image && !animal
+                  ? "btn btn-dark btn-disabled"
+                  : "btn btn-primary"
               }
             />
             {isPinned && (
               <>
-                <i className="fas fa-check-square"></i> Success, your art was
+                <FontAwesomeIcon icon="checkSquare" /> Success, your art was
                 uploaded
               </>
             )}
@@ -134,6 +151,9 @@ const Submit = () => {
     onSubmit,
     isPinned,
     tryAgain,
+    animal,
+    animalOptions,
+    onSelectChange,
   ]);
 
   return <>{artForm()}</>;

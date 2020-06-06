@@ -1,5 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import {
+  faUpload,
+  faCheckSquare,
+  faInfoCircle,
+  faFileMedical,
+  faHeart,
+  faCheck,
+  faHistory,
+  faTimes,
+  faEdit,
+} from "@fortawesome/free-solid-svg-icons";
+
 import Navbar from "./components/layout/Navbar";
 import User from "./components/users/User";
 import Alert from "./components/layout/Alert";
@@ -21,11 +35,24 @@ import "./App.css";
 import { ErrorBoundary } from "./components/error";
 import ThreeBoxState from "./context/three-box/state";
 
+library.add(
+  fab,
+  faUpload,
+  faCheckSquare,
+  faInfoCircle,
+  faHeart,
+  faFileMedical,
+  faCheck,
+  faHistory,
+  faTimes,
+  faEdit
+);
+
 const App = () => {
   return (
     <WildcardsProvider
-      stewardContractAddress="0x4bE0Eab8f41c8109AA134509086Cbcb18b10C0fB"
-      graphEndpoint="api.thegraph.com/subgraphs/name/wildcards-world/harberger-sample-graph"
+    // stewardContractAddress="0x4bE0Eab8f41c8109AA134509086Cbcb18b10C0fB"
+    // graphEndpoint="api.thegraph.com/subgraphs/name/wildcards-world/harberger-sample-graph"
     >
       <ErrorBoundary>
         <GithubState>

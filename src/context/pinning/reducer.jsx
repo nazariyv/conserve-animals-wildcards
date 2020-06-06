@@ -1,4 +1,8 @@
-import { POST_FOR_PINNING, UPDATE_STATE } from "../types";
+import {
+  POST_FOR_PINNING,
+  UPDATE_STATE,
+  UPDATE_SELECTED_ANIMAL,
+} from "../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -8,6 +12,11 @@ export default (state, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case UPDATE_SELECTED_ANIMAL:
+      return {
+        ...state,
+        animal: action.payload,
       };
     default:
       return state;

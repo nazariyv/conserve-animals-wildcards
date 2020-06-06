@@ -1,5 +1,7 @@
 import React, { useEffect, useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import ProjectContext from "../../context/projects/projectContext";
 
 const Project = ({ match }) => {
@@ -21,9 +23,9 @@ const Project = ({ match }) => {
       </Link>
       Artwrok completed?{" "}
       {active ? (
-        <i className="fas fa-check text-success" />
+        <FontAwesomeIcon icon="check" />
       ) : (
-        <i className="fas fa-times-circle text-danger" />
+        <FontAwesomeIcon icon="times" />
       )}
       <div className="card grid-2">
         <div className="all-center">

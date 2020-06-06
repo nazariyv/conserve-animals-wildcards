@@ -16,8 +16,8 @@ let make =
   <RootProvider stewardContractAddress stewardAbi>
     <ReasonApollo.Provider client>
       <ReasonApolloHooks.ApolloHooks.Provider client>
-        <QlStateManager> children </QlStateManager>
-      </ReasonApolloHooks.ApolloHooks.Provider>
+         children </ReasonApolloHooks.ApolloHooks.Provider>
+        // <QlStateManager> children </QlStateManager>
     </ReasonApollo.Provider>
   </RootProvider>;
 };

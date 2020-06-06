@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import MyProfile from "../artist/MyProfile";
@@ -8,11 +8,11 @@ import Review from "../artist/Review";
 import { MY_PROFILE, REVIEW, SUBMIT } from "../../types";
 import PinningState from "../../context/pinning/state";
 import ThreeBoxContext from "../../context/three-box/context";
-import { useCurrentUser } from "../../harberger-lib/RootProvider.bs";
-import {
-  use3BoxUserData,
-  useDisplayName,
-} from "../../harberger-lib/js/user-provider/UserProvider.bs";
+// import { useCurrentUser } from "../../harberger-lib/RootProvider.bs";
+// import {
+//   use3BoxUserData,
+//   useDisplayName,
+// } from "../../harberger-lib/js/user-provider/UserProvider.bs";
 
 const ActiveMenuItem = ({ activeMenu }) => {
   switch (activeMenu) {
