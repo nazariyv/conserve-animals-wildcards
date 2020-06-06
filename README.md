@@ -4,28 +4,31 @@
 
 Uses 3Box's threads per animal that are publicly open. Here you have IPFS hashes and metadata about the submission, such as artist, submission comment, and any other pinata metadata.
 
-When the user submits art, a private (in the sense that noone except the admin and the submitter can edit it) thread for communication purposes.
+When the user submits art, a private (in the sense that noone except the admin and the submitter can edit it) thread for communication purposes is created between the artist and the admin (this part is not working because the chatbox component does not allow you to specify thread's orbitdb url).
 
-The artist has the ability to make a submission from their own panel, or from the home page. Once submitted, it is added to their table of submissions, where they can also see the status of their submissions.
+The artist has the ability to make a submission from their own panel, or from the home page (not done, but it would be easy to hook this up). Once submitted, it is added to their table of submissions, where they can also see the status of their submissions.
 
-Next, it is admins who give feedback in the private thread and change the status of the submission accordingly.
+Next, it is the admins who give the feedback in the private thread and change the status of the submission accordingly (in admin panel).
 
 ## How to start
 
 To start the app, you need the following env variables (you can place them in the `.env` file in the root directory)
 
-REACT_APP_PINATA_API_KEY
+There is a bunch of env variables that you need to define to get this working:
 
-REACT_APP_PINATA_SECRET_API_KEY
+REACT_APP_ADMIN=0x4231231231231231231231
+REACT_APP_PINATA_API_KEY=a23124k34o23o4io
+REACT_APP_PINATA_SECRET_API_KEY=sadkasjdkjaklsjdklasjkdljaklsj
+REACT_APP_ADMIN_PASSWORD=root
+REACT_APP_3ID=did:3:sjasklklsjfklsdjklfjsdkljfklj
 
-REACT_APP_ADMIN_PASSWORD
 
-Where the last one is arbitrary. You then use it to access the admin panel at /admin/:pwd, where :pwd is the password from the environment variable
+You can access the admin panel at /admin/:pwd, where :pwd is the password from the environment variable
 
 And then
 
 ```bash
-yarn install
+yarn
 yarn start
 ```
 
