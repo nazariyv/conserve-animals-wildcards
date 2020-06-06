@@ -17,9 +17,13 @@ To start the app, you need the following env variables (you can place them in th
 There is a bunch of env variables that you need to define to get this working:
 
 REACT_APP_ADMIN=0x4231231231231231231231
+
 REACT_APP_PINATA_API_KEY=a23124k34o23o4io
+
 REACT_APP_PINATA_SECRET_API_KEY=sadkasjdkjaklsjdklasjkdljaklsj
+
 REACT_APP_ADMIN_PASSWORD=root
+
 REACT_APP_3ID=did:3:sjasklklsjfklsdjklfjsdkljfklj
 
 
