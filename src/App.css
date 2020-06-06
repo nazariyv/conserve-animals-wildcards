@@ -405,6 +405,10 @@ td {
   border-spacing: 0;
 }
 
+a.btn-dark:visited {
+  color: yellow;
+}
+
 table {
   border-bottom-color: black !important;
   border-left-color: black !important;

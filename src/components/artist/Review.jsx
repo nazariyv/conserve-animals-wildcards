@@ -1,6 +1,13 @@
-import React, { useMemo, useState, useEffect, useContext } from "react";
-import Spinner from "../layout/Spinner";
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+} from "react";
+import Box from "3box";
 
+import Spinner from "../layout/Spinner";
 import { getUserSubmissions } from "../../internal/pinata";
 import { pinataToTable } from "../../internal/pinata/transform";
 import { USER } from "../../internal/pinata/types";
@@ -8,12 +15,64 @@ import ThreeBoxContext from "../../context/three-box/context";
 import PuppyError from "../../components/puppy-error";
 import Table from "../../components/table";
 import BoxChat from "../../components/box";
+import { WILDCARDS } from "../../types";
 
 const Review = () => {
   const [loadingUserSubmissions, setLoadingUserSubmissions] = useState(true);
   const [userSubmissions, setUserSubmisisons] = useState([{}]);
   const [requestOK, setRequestOK] = useState(null);
-  const { profile, box, space } = useContext(ThreeBoxContext);
+  const [threadName, setThreadName] = useState(null);
+  const [isAdminChat, setIsAdminChat] = useState(false);
+  // const [boxProvider, setBoxProvider] = useState(null);
+  const { profile, box, currentUser, isProviderSelected } = useContext(
+    ThreeBoxContext
+  );
+
+  const OpenChat = (data) => {
+    return (
+      <button
+        className="btn btn-light"
+        onClick={() => {
+          if (!data.value) {
+            return;
+          }
+          setThreadName(data.value);
+          setIsAdminChat(true);
+        }}
+      >
+        Chat
+      </button>
+    );
+  };
+
+  const All = (data) => {
+    return (
+      <button
+        className="btn btn-light"
+        onClick={() => {
+          if (!data.value) {
+            return;
+          }
+          setThreadName(data.value);
+          setIsAdminChat(false);
+        }}
+      >
+        See
+      </button>
+    );
+  };
+
+  // useEffect(() => {
+  //   if (isProviderSelected) {
+  //     Box.get3idConnectProvider()
+  //       .then((provider) => {
+  //         setBoxProvider(provider);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [isProviderSelected]);
 
   useEffect(() => {
     getUserSubmissions({ proofDid: profile.proof_did })
@@ -38,6 +97,12 @@ const Review = () => {
         columns: [
           { Header: "Status", accessor: "status" },
           {
+            Header: "Talk to Admin",
+            accessor: "adminChat",
+            Cell: OpenChat,
+          },
+          { Header: "All", accessor: "all", Cell: All },
+          {
             Header: "Created On",
             accessor: "createdOn",
           },
@@ -45,9 +110,9 @@ const Review = () => {
             Header: "File Name",
             accessor: "fileName",
           },
-          { Header: "Art Name", accessor: "artName" },
           { Header: "My Comment", accessor: "myComment" },
-          { Header: "Reviewer's Comment", accessor: "reviewersComment" },
+          { Header: "Art Name", accessor: "artName" },
+          { Header: "Animal", accessor: "animal" },
           // *: this can be used to hook up resubmission process
           // *: you can add a hidden column with id of the submission here
           // {
@@ -62,28 +127,59 @@ const Review = () => {
     []
   );
 
+  const authBox = useCallback(async () => {
+    await box.auth([WILDCARDS], { address: currentUser });
+    await box.syncDone;
+    const space = await box.openSpace(WILDCARDS);
+    await space.syncDone;
+  }, [currentUser, box]);
+
+  const getComments = useCallback(() => {
+    authBox();
+    return (
+      <BoxChat
+        box={box}
+        currentUserAddr={currentUser}
+        // isAdminChat={isAdminChat}
+        threadName={threadName} // todo: this will depend on which row the user clicks in the table
+        currentUser3BoxProfile={profile}
+      />
+    );
+  }, [threadName, box, currentUser, profile, authBox]);
+
   const reviewPage = () => {
     switch (loadingUserSubmissions) {
       case true:
         return <Spinner />;
       default:
-        // ! TODO: THIS has to be current user's address
-        if (box && space) {
-          return (
-            <BoxChat
-              box={box}
-              currentUserAddr={process.env.REACT_APP_ADMIN}
-              currentUser3BoxProfile={profile}
-              // handleLogin={boxLogin}
-              threadName="VitalikGorilla" // todo: this will depend on which row the user clicks in the table
-            />
-          );
-        } else {
-          return <Table columns={columns} data={userSubmissions} />;
-        }
+        return (
+          <>
+            <>
+              <p>
+                To talk to admin about specific art, click on the cell in a
+                table corresponding to that art in the column "Talk to Admin"
+              </p>
+              <br />
+              <p>
+                To see all submissions for a particular animal that you have
+                made a submission to, click in the corresponding cell in column
+                "All"
+              </p>
+              <br />
+              <Table columns={columns} data={userSubmissions} />
+            </>
+            <>
+              <hr />
+              <p style={{ margin: "3rem 0" }}>
+                This is where you will be able to communicate with admins /
+                observe other artists' submissions
+              </p>
+              {box && threadName && profile && getComments()}
+            </>
+          </>
+        );
     }
   };
-
   return <>{requestOK === null || requestOK ? reviewPage() : <PuppyError />}</>;
 };
 

@@ -13,7 +13,7 @@ const ProjectState = (props) => {
         avatar_url: "/assets/images/wildcards.png",
         html_url: "https://wildcards.world/#ethturin-quadratic-voting",
         thread_url:
-          "/orbitdb/zdpuAmH6k11Z81fjHJVwHky9MtTtVu3jG18ML2AhhKC6TC95Q/3box.thread.wildcards.VitalikGorilla",
+          "/orbitdb/zdpuAtcPsCirUAPeG5UBwqjhcgrvjhoqDxpcmqpr6paofkQD1/3box.thread.wildcards.VitalikGorilla",
         active: true,
         company_bio: "Vitalik",
         bio:
@@ -26,7 +26,7 @@ const ProjectState = (props) => {
         avatar_url: "/assets/images/comingsoon.png",
         html_url: "https://www.greatwhaleconservancy.org/",
         thread_url:
-          "/orbitdb/zdpuAw7973oa3uL9gh2MCcbktKrQhQgKPuB8brRe6mgspXhty/3box.thread.wildcards.GriffWahel",
+          "/orbitdb/zdpuAuPq9pzPGEs2ghBmznPcRsoTExjnVbVTqjrkg41wwt6Wo/3box.thread.wildcards.GriffWhale",
         active: false,
         company_bio: "Griff",
         bio:
@@ -39,7 +39,7 @@ const ProjectState = (props) => {
         avatar_url: "/assets/images/comingsoon.png",
         html_url: "https://pangolin.africa",
         thread_url:
-          "/orbitdb/zdpuAyfGt5LVva1hBe78c362xXwoU9Ji49kcyvv1vHv6aNNq1/3box.thread.wildcards.SarahPangolin",
+          "/orbitdb/zdpuB2uFdBY9mqp2H3iFZQMkMsLzV5h33a3nEoT1BuSsYtsbL/3box.thread.wildcards.SarahPangolin",
         active: false,
         company_bio: "Sarah",
         bio:

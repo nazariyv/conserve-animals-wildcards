@@ -27,9 +27,34 @@ const ThreeBoxState = ({ children }) => {
     profile,
     isProviderSelected,
     currentUser,
+    box: null,
+    space: null,
   };
 
   const [state, dispatch] = useReducer(ThreeBoxReducer, initialState);
+
+  const openBoxAndSpace = useCallback(async () => {
+    if (isProviderSelected) {
+      // const provider = await Box.get3idConnectProvider();
+      const box = await Box.openBox(currentUser, window.ethereum); // * cannot get 3id provider to work
+      await box.syncDone;
+      const space = await box.openSpace(WILDCARDS);
+      await space.syncDone;
+      return { box, space };
+    } else {
+      console.log("try again when the provider is selected");
+      return { box: null, space: null };
+    }
+  }, [isProviderSelected, currentUser]);
+
+  useEffect(() => {
+    openBoxAndSpace().then(({ box, space }) => {
+      if (!box && !space) {
+        return;
+      }
+      dispatch({ type: UPDATE_STATE, payload: { box, space } });
+    });
+  }, [isProviderSelected, openBoxAndSpace]);
 
   useEffect(() => {
     dispatch({
@@ -37,15 +62,6 @@ const ThreeBoxState = ({ children }) => {
       payload: { isProviderSelected, profile, currentUser },
     });
   }, [isProviderSelected, profile, currentUser]);
-
-  const openBoxAndSpace = useCallback(async () => {
-    const provider = await Box.get3idConnectProvider();
-    const box = await Box.openBox(process.env.REACT_APP_ADMIN, provider); // * web3 if it doesn't work?
-    await box.syncDone;
-    const space = await box.openSpace(WILDCARDS);
-    await space.syncDone;
-    return { box, space };
-  }, []);
 
   if (!isProviderSelected) {
     return (
@@ -63,6 +79,8 @@ const ThreeBoxState = ({ children }) => {
         profile: state.profile,
         isProviderSelected: state.isProviderSelected,
         currentUser: state.currentUser,
+        box: state.box,
+        space: state.space,
         openBoxAndSpace,
       }}
     >

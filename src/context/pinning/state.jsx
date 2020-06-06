@@ -60,7 +60,6 @@ const PinningState = ({ children }) => {
   }, []);
 
   const onSelectChange = useCallback((selectedOption) => {
-    console.log(selectedOption);
     dispatch({
       type: UPDATE_SELECTED_ANIMAL,
       payload: { ...selectedOption },
@@ -89,7 +88,8 @@ const PinningState = ({ children }) => {
         },
       });
     },
-    [state.image]
+    /* eslint-disable */
+    [state.image, state.animal.value, state.authorComment, state.artName]
   );
 
   return (

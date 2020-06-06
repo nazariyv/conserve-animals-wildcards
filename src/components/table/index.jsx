@@ -1,10 +1,12 @@
 import React from "react";
 import { useTable } from "react-table";
 
-// todo: rewrite this table: https://codesandbox.io/s/r5n96yvwnm?file=/index.js:211-330
+// if you plan to stick with react-table, see:
+// https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/pagination-controlled
+// for pagination
 export default ({ columns, data }) => {
   if (!columns || !data) {
-    return <></>;
+    return <>Table has no data</>;
   }
   const {
     getTableProps,
@@ -16,7 +18,6 @@ export default ({ columns, data }) => {
     columns,
     data,
   });
-  // todo: styling the components themselves is baaad
   return (
     <>
       <table

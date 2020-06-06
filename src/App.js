@@ -51,8 +51,8 @@ library.add(
 const App = () => {
   return (
     <WildcardsProvider
-    // stewardContractAddress="0x4bE0Eab8f41c8109AA134509086Cbcb18b10C0fB"
-    // graphEndpoint="api.thegraph.com/subgraphs/name/wildcards-world/harberger-sample-graph"
+      stewardContractAddress="0x4bE0Eab8f41c8109AA134509086Cbcb18b10C0fB"
+      graphEndpoint="api.thegraph.com/subgraphs/name/wildcards-world/harberger-sample-graph"
     >
       <ErrorBoundary>
         <GithubState>

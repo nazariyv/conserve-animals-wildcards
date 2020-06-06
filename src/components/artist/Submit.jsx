@@ -37,9 +37,17 @@ const Submit = () => {
   // todo: throttle the submission
   const onSubmit = useCallback(
     (e) => {
-      pinArt({ e, profile, artMeta: { artName, authorComment } });
+      pinArt({
+        e,
+        profile,
+        artMeta: {
+          artName,
+          authorComment,
+          animalID: animal.value,
+        },
+      });
     },
-    [profile, pinArt, artName, authorComment]
+    [profile, pinArt, artName, authorComment, animal.value]
   );
 
   const artForm = useCallback(() => {
@@ -121,17 +129,16 @@ const Submit = () => {
             </>
             <input
               type="submit"
-              disabled={!image && !animal && "disabled"}
+              disabled={!image && !animal.value && "disabled"}
               className={
-                !image && !animal
+                !image && !animal.value
                   ? "btn btn-dark btn-disabled"
                   : "btn btn-primary"
               }
             />
             {isPinned && (
               <>
-                <FontAwesomeIcon icon="checkSquare" /> Success, your art was
-                uploaded
+                <FontAwesomeIcon icon="check" /> Uploaded successfully
               </>
             )}
             {/* unomment for image preview */}

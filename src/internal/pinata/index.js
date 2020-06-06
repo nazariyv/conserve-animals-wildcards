@@ -10,7 +10,7 @@ export const pinToIPFS = async ({ file, profile, artMeta }) => {
     let data = new FormData();
     data.append("file", file);
     const metadata = JSON.stringify({
-      name: "randomName",
+      name: `${artMeta.artName}`,
       keyvalues: {
         wildcards: "art",
         userName: `${profile.name}`,
@@ -18,6 +18,7 @@ export const pinToIPFS = async ({ file, profile, artMeta }) => {
         artName: `${artMeta.artName}`,
         authorComment: `${artMeta.authorComment}`,
         fileName: `${file.name}`,
+        animalID: `${artMeta.animalID}`,
         status: IN_REVIEW,
       },
     });
@@ -51,6 +52,8 @@ export const pinToIPFS = async ({ file, profile, artMeta }) => {
 };
 
 export const getUserSubmissions = async ({ proofDid }) => {
+  console.log("getting user submissions with");
+  console.log(proofDid);
   // ? security issue. i.e. other users can see the submissions
   const url = `https://api.pinata.cloud/data/pinList?status=pinned&metadata[proofDid]=${encodeURIComponent(
     proofDid

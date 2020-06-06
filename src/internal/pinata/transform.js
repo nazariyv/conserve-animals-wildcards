@@ -17,7 +17,7 @@ const getSubmissionStatus = ({ status }) => {
     case APPROVED:
       return (
         <>
-          <FontAwesomeIcon icon="checkSquare" />
+          <FontAwesomeIcon icon="check" />
           <br />
           Approved
         </>
@@ -34,6 +34,8 @@ const getSubmissionStatus = ({ status }) => {
       return (
         <>
           <FontAwesomeIcon icon="edit" />
+          <br />
+          Open chat with admin
         </>
       );
     default:
@@ -45,23 +47,29 @@ export const pinataToTable = ({ data, type }) => {
   if (!data || !type) {
     return [{}];
   }
+
   let out;
   if (type === USER) {
     out = Object.values(data.rows).map((v) => {
       const { keyvalues } = v.metadata;
+      // todo: need to pull the artist - admin thread hash here
       return {
         createdOn: v.date_pinned || "1970-01-01T00:00:00.0000Z",
         fileName: keyvalues.fileName || "",
         artName: keyvalues.artName || "",
         myComment: keyvalues.authorComment || "",
+        adminChat: keyvalues.animalID || "",
+        all: keyvalues.animalID || "",
+        animal: keyvalues.animalID || "",
         status: getSubmissionStatus({
           status: keyvalues.status,
         }),
-        reviewersComment: keyvalues.reviewersComment || "",
         resubmit: null, // todo: react component here?
       };
     });
   } else if (type === ADMIN) {
+    // ! todo: add actual art, and put it into <img ..>
+    // ! todo: need to pull the artist - admin thread hash here
     out = Object.values(data.rows).map((v) => {
       const { keyvalues } = v.metadata;
       return {
@@ -72,7 +80,6 @@ export const pinataToTable = ({ data, type }) => {
         status: getSubmissionStatus({
           status: keyvalues.status,
         }),
-        reviewersComment: keyvalues.reviewersComment || "",
         id: v.id || "",
         ipfs_pin_hash: v.ipfs_pin_hash || "",
         size: v.size || "",

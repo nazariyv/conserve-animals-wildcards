@@ -1,6 +1,6 @@
 import React from "react";
 
-// * this is how I created threads
+// * this is how I created the threads
 // const createThreads = async () => {
 //   const provider = await Box.get3idConnectProvider();
 //   const box = await Box.create(provider);
@@ -17,7 +17,9 @@ import React from "react";
 //   console.log(thread);
 // };
 
-// todo: add ability to log in here, as well as in the navbar
+// you can add a bunch of user information like how many submissions they have made
+// how much eth they have made
+// how many times their art was resold, etc. etc.
 const MyProfile = () => {
   return (
     <div className="myProfile">
