@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useState, useEffect } from "react";
 import Select from "react-select";
 
 import Spinner from "../layout/Spinner";
@@ -6,6 +6,7 @@ import PinningContext from "../../context/pinning/context";
 import ThreeBoxContext from "../../context/three-box/context";
 import PuppyError from "../../components/puppy-error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { WILDCARDS } from "../../types";
 
 const Submit = () => {
   const {
@@ -23,7 +24,52 @@ const Submit = () => {
     onSelectChange,
   } = useContext(PinningContext);
 
-  const { profile } = useContext(ThreeBoxContext);
+  const { profile, box, currentUser, isProviderSelected } = useContext(
+    ThreeBoxContext
+  );
+
+  // todo: create context for threads. you can see that we are pulling the thread
+  // todo: in components/box/index.jsx as well
+  const [thread, setThread] = useState(null);
+
+  useEffect(() => {
+    const openThread = async () => {
+      const resolvedThread = await box.openThread(WILDCARDS, animal.value, {
+        firstModerator: process.env.REACT_APP_ADMIN,
+        ghost: false,
+      });
+      return resolvedThread;
+    };
+    openThread()
+      .then((resThread) => {
+        setThread(resThread);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [animal, box]);
+
+  const submitTo3box = useCallback(
+    (msg) => {
+      if (!thread) {
+        return;
+      }
+      const postToThread = async () => {
+        const resp = await thread.post(JSON.stringify(msg));
+        return resp;
+      };
+      postToThread()
+        .then((data) => {
+          console.log("posted to thread");
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log("there was an error posting to thread");
+          console.log(err);
+        });
+    },
+    [thread]
+  );
 
   const tryAgain = useCallback(
     (e) => {
@@ -37,17 +83,26 @@ const Submit = () => {
   // todo: throttle the submission
   const onSubmit = useCallback(
     (e) => {
-      pinArt({
-        e,
+      if (e) {
+        e.preventDefault();
+      }
+      const m = {
         profile,
         artMeta: {
           artName,
           authorComment,
           animalID: animal.value,
         },
-      });
+      };
+      pinArt(m)
+        .then((pinMeta) => {
+          submitTo3box({ messageData: pinMeta.data, artMeta: m.artMeta });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
-    [profile, pinArt, artName, authorComment, animal.value]
+    [profile, pinArt, artName, authorComment, animal.value, submitTo3box]
   );
 
   const artForm = useCallback(() => {

@@ -12,8 +12,6 @@ const ProjectState = (props) => {
         role: "Vitalik",
         avatar_url: "/assets/images/wildcards.png",
         html_url: "https://wildcards.world/#ethturin-quadratic-voting",
-        thread_url:
-          "/orbitdb/zdpuAtcPsCirUAPeG5UBwqjhcgrvjhoqDxpcmqpr6paofkQD1/3box.thread.wildcards.VitalikGorilla",
         active: true,
         company_bio: "Vitalik",
         bio:
@@ -25,8 +23,6 @@ const ProjectState = (props) => {
         role: "Griff",
         avatar_url: "/assets/images/comingsoon.png",
         html_url: "https://www.greatwhaleconservancy.org/",
-        thread_url:
-          "/orbitdb/zdpuAuPq9pzPGEs2ghBmznPcRsoTExjnVbVTqjrkg41wwt6Wo/3box.thread.wildcards.GriffWhale",
         active: false,
         company_bio: "Griff",
         bio:
@@ -38,8 +34,6 @@ const ProjectState = (props) => {
         role: "Sarah",
         avatar_url: "/assets/images/comingsoon.png",
         html_url: "https://pangolin.africa",
-        thread_url:
-          "/orbitdb/zdpuB2uFdBY9mqp2H3iFZQMkMsLzV5h33a3nEoT1BuSsYtsbL/3box.thread.wildcards.SarahPangolin",
         active: false,
         company_bio: "Sarah",
         bio:

@@ -67,10 +67,7 @@ const PinningState = ({ children }) => {
   }, []);
 
   const pinArt = useCallback(
-    async ({ e, profile, artMeta }) => {
-      if (e) {
-        e.preventDefault();
-      }
+    async ({ profile, artMeta }) => {
       if (!profile) {
         return;
       }
@@ -87,6 +84,7 @@ const PinningState = ({ children }) => {
           isPinned: resp ? resp.status === 200 : false,
         },
       });
+      return resp;
     },
     /* eslint-disable */
     [state.image, state.animal.value, state.authorComment, state.artName]

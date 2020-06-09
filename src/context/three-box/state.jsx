@@ -34,18 +34,21 @@ const ThreeBoxState = ({ children }) => {
   const [state, dispatch] = useReducer(ThreeBoxReducer, initialState);
 
   const openBoxAndSpace = useCallback(async () => {
-    if (isProviderSelected) {
-      // const provider = await Box.get3idConnectProvider();
-      const box = await Box.openBox(currentUser, window.ethereum); // * cannot get 3id provider to work
-      await box.syncDone;
-      const space = await box.openSpace(WILDCARDS);
-      await space.syncDone;
-      return { box, space };
-    } else {
-      console.log("try again when the provider is selected");
-      return { box: null, space: null };
-    }
-  }, [isProviderSelected, currentUser]);
+    // if (isProviderSelected) {
+    // const provider = await Box.get3idConnectProvider();
+    console.log("currentUser is ");
+    console.log(currentUser);
+    const box = await Box.openBox(String(currentUser), window.ethereum); // * cannot get 3id provider to work
+    await box.syncDone;
+    const space = await box.openSpace(WILDCARDS);
+    await space.syncDone;
+    return { box, space };
+    // } else {
+    //   console.log("try again when the provider is selected");
+    //   return { box: null, space: null };
+    // }
+    // }, [isProviderSelected, currentUser]);
+  }, [currentUser, window.ethereum]);
 
   useEffect(() => {
     openBoxAndSpace().then(({ box, space }) => {
@@ -54,7 +57,7 @@ const ThreeBoxState = ({ children }) => {
       }
       dispatch({ type: UPDATE_STATE, payload: { box, space } });
     });
-  }, [isProviderSelected, openBoxAndSpace]);
+  }, [isProviderSelected, openBoxAndSpace, window.ethereum]);
 
   useEffect(() => {
     dispatch({

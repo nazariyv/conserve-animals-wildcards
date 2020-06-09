@@ -50,12 +50,15 @@ export default ({ match }) => {
           accessor: "editPin",
           Cell: (cellInfo) => {
             return (
-              <FontAwesomeIcon
-                icon="fileMedical"
-                onClick={() => {
-                  modifyIt({ cellInfo });
-                }}
-              />
+              <div style={{ cursor: "pointer" }}>
+                <FontAwesomeIcon
+                  icon="edit"
+                  onClick={() => {
+                    modifyIt({ cellInfo });
+                  }}
+                  value="Give feedback"
+                />
+              </div>
             );
           },
         },

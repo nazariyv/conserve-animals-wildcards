@@ -5,7 +5,7 @@ import React, {
   useContext,
   useCallback,
 } from "react";
-import Box from "3box";
+// import Box from "3box";
 
 import Spinner from "../layout/Spinner";
 import { getUserSubmissions } from "../../internal/pinata";
@@ -14,7 +14,7 @@ import { USER } from "../../internal/pinata/types";
 import ThreeBoxContext from "../../context/three-box/context";
 import PuppyError from "../../components/puppy-error";
 import Table from "../../components/table";
-import BoxChat from "../../components/box";
+import ChatBox from "../../components/box";
 import { WILDCARDS } from "../../types";
 
 const Review = () => {
@@ -61,18 +61,6 @@ const Review = () => {
       </button>
     );
   };
-
-  // useEffect(() => {
-  //   if (isProviderSelected) {
-  //     Box.get3idConnectProvider()
-  //       .then((provider) => {
-  //         setBoxProvider(provider);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [isProviderSelected]);
 
   useEffect(() => {
     getUserSubmissions({ proofDid: profile.proof_did })
@@ -137,14 +125,15 @@ const Review = () => {
   const getComments = useCallback(() => {
     authBox();
     return (
-      <BoxChat
+      <ChatBox
         box={box}
         currentUserAddr={currentUser}
         // isAdminChat={isAdminChat}
-        threadName={threadName} // todo: this will depend on which row the user clicks in the table
+        threadName={threadName} // * this will depend on which row the user clicks in the table
         currentUser3BoxProfile={profile}
       />
     );
+    // }, [threadName, box, currentUser, profile]);
   }, [threadName, box, currentUser, profile, authBox]);
 
   const reviewPage = () => {
@@ -166,7 +155,15 @@ const Review = () => {
                 "All"
               </p>
               <br />
-              <Table columns={columns} data={userSubmissions} />
+              <div
+                style={{
+                  maxHeight: 400,
+                  overflowX: "scroll",
+                  overflowY: "scroll",
+                }}
+              >
+                <Table columns={columns} data={userSubmissions} />
+              </div>
             </>
             <>
               <hr />
