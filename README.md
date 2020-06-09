@@ -16,11 +16,13 @@ To start the app, you need the following env variables (you can place them in th
 
 There is a bunch of env variables that you need to define to get this working:
 
-REACT_APP_ADMIN=0x4231231231231231231231
+REACT_APP_ADMIN
 
-REACT_APP_ADMIN_ADDRESS
+REACT_APP_PINATA_API_KEY
 
-REACT_APP_ADMIN_PASSWORD
+REACT_APP_PINATA_SECRET_API_KEY
+
+REACT_APP_ADMIN_PASSWORD=root
 
 (copy `.env.example` into `.env`)
 
@@ -33,6 +35,6 @@ yarn
 yarn start
 ```
 
-Here is the video demo: https://youtu.be/olXvtVuSikI
+Here is the video demo: https://youtu.be/djmlwMiqO8o
 
 One last thing that is not mentioned in the video, if the user isn't browsing with a provider like MetaMask, a React hook from `harberger-lib` will open a modal in the app that will allow the user to create an Etereum address and hook it up with 3box.
