@@ -14,9 +14,9 @@ Next, it is the admins who give feedback in the private thread **(initially had 
 
 To start the app, you need the following env variables (you can place them in the `.env` file in the root directory)
 
-REACT_APP_PINATA_API_KEY
+There is a bunch of env variables that you need to define to get this working:
 
-REACT_APP_PINATA_SECRET_API_KEY
+REACT_APP_ADMIN=0x4231231231231231231231
 
 REACT_APP_ADMIN_ADDRESS
 
@@ -29,7 +29,7 @@ Where the last one is arbitrary. You then use it to access the admin panel at /a
 And then
 
 ```bash
-yarn install
+yarn
 yarn start
 ```
 
