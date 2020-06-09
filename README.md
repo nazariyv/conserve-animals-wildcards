@@ -35,6 +35,6 @@ yarn
 yarn start
 ```
 
-Here is the video demo: https://youtu.be/djmlwMiqO8o
+Here is the video demo: https://youtu.be/olXvtVuSikI
 
 One last thing that is not mentioned in the video, if the user isn't browsing with a provider like MetaMask, a React hook from `harberger-lib` will open a modal in the app that will allow the user to create an Etereum address and hook it up with 3box.
