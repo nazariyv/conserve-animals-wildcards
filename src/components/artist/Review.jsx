@@ -14,7 +14,8 @@ import { USER } from "../../internal/pinata/types";
 import ThreeBoxContext from "../../context/three-box/context";
 import PuppyError from "../../components/puppy-error";
 import Table from "../../components/table";
-import ChatBox from "../../components/box";
+import ChatBox from "../../components/box/enhanced";
+// import ChatBox from "../../components/box";
 import { WILDCARDS } from "../../types";
 
 const Review = () => {

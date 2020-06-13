@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "3box": "^1.19.0",
+    "3box-chatbox-react-enhanced": "^0.1.19",
     "@apollo/react-hooks": "^3.1.5",
     "@emotion/core": "^10.0.28",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
