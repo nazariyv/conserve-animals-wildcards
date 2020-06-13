@@ -32,6 +32,7 @@ And then
 
 ```bash
 yarn
+yarn re:build
 yarn start
 ```
 
