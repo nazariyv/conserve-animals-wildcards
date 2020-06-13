@@ -4,7 +4,7 @@
 
 Uses 3Box's threads per animal that are publicly open (persistent 3box threads, everyone can see these, and noone can post anything here). Here you have IPFS hashes and metadata about the submissions, such as artist, submission comment, and any other pinata metadata.
 
-When the user submits art, a private (in the sense that noone except the admin and the submitter can edit it) thread for communication purposes. **[UNIMPLEMENTED]** This would be easy to implement given I have implemented the public threads. Consider using this component: https://github.com/open-tribe/3box-chatbox-react for persistent thread chat. 3box people on Discord & the author of this repo claim persistent threads are supported!
+When the user submits art, a private (in the sense that noone except the admin and the submitter can edit it) thread for communication purposes. **[UNIMPLEMENTED]** This would be easy to implement given I have implemented the public threads. Consider using this component: 3box-chatbox-react-enhanced for persistent thread chat. 3box people on Discord & the author of this repo claim persistent threads are supported! Latest on this: I have reached out to the author, since there are some issues, and he happily agreed to help (13/06/2020).
 
 The artist has the ability to make a submission from their own panel, or from the home page **[the home page bit is unimplemented]**. Once submitted, it is added to their table of submissions, where they can also see the status of their submissions.
 
