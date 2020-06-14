@@ -60,11 +60,9 @@ const Submit = () => {
       };
       postToThread()
         .then((data) => {
-          console.log("posted to thread");
           console.log(data);
         })
         .catch((err) => {
-          console.log("there was an error posting to thread");
           console.log(err);
         });
     },
@@ -94,7 +92,7 @@ const Submit = () => {
           animalID: animal.value,
         },
       };
-      pinArt(m)
+      pinArt({ profile: m.profile, artMeta: m.artMeta })
         .then((pinMeta) => {
           submitTo3box({ messageData: pinMeta.data, artMeta: m.artMeta });
         })

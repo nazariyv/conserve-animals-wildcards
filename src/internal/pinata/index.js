@@ -29,12 +29,12 @@ export const pinToIPFS = async ({ file, profile, artMeta }) => {
         regions: [
           {
             id: "FRA1",
-            desiredReplicationCount: 2,
+            desiredReplicationCount: 1,
           },
-          {
-            id: "NYC1",
-            desiredReplicationCount: 2,
-          },
+          // {
+          //   id: "NYC1",
+          //   desiredReplicationCount: 2,
+          // },
         ],
       },
     });

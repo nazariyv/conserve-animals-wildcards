@@ -36,8 +36,6 @@ const ThreeBoxState = ({ children }) => {
   const openBoxAndSpace = useCallback(async () => {
     // if (isProviderSelected) {
     // const provider = await Box.get3idConnectProvider();
-    console.log("currentUser is ");
-    console.log(currentUser);
     const box = await Box.openBox(String(currentUser), window.ethereum); // * cannot get 3id provider to work
     await box.syncDone;
     const space = await box.openSpace(WILDCARDS);
